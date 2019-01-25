@@ -74,13 +74,18 @@ document.getElementById("q1").style.color = "red";
 
 
 // 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
+/*
 function color(){
   if(document.getElementById){
     var input = document.getElementById('q2');
     input.style.backgroundColor = "pink";
   }
 }
+*/
 
+$("#q2").on("click",function(){
+  document.getElementById("q2").style.backgroundColor = "pink";
+});
 
 // 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
 
