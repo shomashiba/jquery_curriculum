@@ -30,12 +30,12 @@
       // .eq() 引数に応じたindexの要素を指定します。
       // .addClass() クラスを追加します。
       // .removeClass() クラスを削除します。
-      $('.nav').find('li').on('click touchend', function(event){
-        var liNum = $(this).index();
-        if(!$(event.target).closest('.class'.find('li')).length){
-          addClass('.class'.find('li'),eq(liNum));
+      $(('.nav').find('li')).on('click', function(event){
+        var liNum = $(('.nav').find('li')).index();
+        if(('.nav'.find('li').eq(liNum)).on('click')){
+          $('.contents'.'li'.eq(liNum)).removeClass('.is_hidden');
         }else{
-          removeClass('.class'.find('li'),eq(liNum));
+          $('.contents''li').addClass('.is_hidden');
         }
       })
     </script>
