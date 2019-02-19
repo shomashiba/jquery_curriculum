@@ -32,8 +32,8 @@
       // .removeClass() クラスを削除します。
       $('.nav').find('li').click(function() {
         var liNum = $(this).index();
-        $('.contents').find('li').addClass('.is-hidden');
-        $('.contents').find('li').eq(liNum).removeClass('.is-hidden');
+        $('.contents').find('li').addClass('is-hidden');
+        $('.contents').find('li').eq(liNum).removeClass('is-hidden');
       });
     </script>
   </body>
