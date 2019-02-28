@@ -24,10 +24,10 @@
       $(function(){
         var count = 30;
         $('.input').keyup(function(){
-          var sNum = $(this).val().replace(/\s+/g,'').length;
-          var cDown = count - sNum;
-          $('.rest-count').text(cDown);
-          if(cDown < 0){
+          var stringNum = $(this).val().replace(/\s+/g,'').length;
+          var countDown = count - stringNum;
+          $('.rest-count').text(countDown);
+          if(countDown < 0){
             $('.rest-count').addClass('red');
           }else{
             $('.rest-count').removeClass('red');

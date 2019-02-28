@@ -56,10 +56,10 @@
       // .next() 要素の隣の要素を取得します。
       // .children() 要素の子要素を取得します。
       // .stop() 現在動作中のアニメーション処理を全て中止します。
-      $('.menu__list__title').hover(function() {
-          $(this).next().slideDown();
+      $('.menu__list').find('li').hover(function() {
+          $(this).find('.menu__list__title').next().stop().slideDown();
         },function() {
-          $(this).next().slideUp();
+          $(this).find('.menu__list__title').next().stop().slideUp();
         })
     </script>
   </body>

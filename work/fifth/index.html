@@ -86,16 +86,18 @@
     <script>
       $( '.select-wrapper').find('select').change(function() {
         var value = $('select').val();
-        $('.list').find('li').each(function(index,element){
-          var data = $(this).data('category-type');
-          if(value == 'all'){
-            $('ul').children().show();
-          }else if(value == data){
-            $(this).show();
-          } else{
-            $(this).hide();
-          }
-        })
+        if(value == 'all'){
+            $('.list').children().show();
+        } else {
+          $('.list').find('li').each(function(index,element){
+            var data = $(element).data('category-type');
+            if(value == data){
+              $(element).show();
+            } else{
+              $(element).hide();
+            }
+          })
+        }
       });
       // 今回やるのはソート機能です。
       // selectボックスをクリックして言語を選び、その言語と関係のあるリストだけが表示されるプログラムです。
