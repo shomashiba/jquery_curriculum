@@ -27,15 +27,55 @@
     <script src="../../common/js/jquery.js"></script>
     <script>
       $(function(){
-        var imgWidth = $('img').width();
-        var position = [i];
+        var i = 0;
+        //indexの番号
+        var total = 0;
+        //画像の横幅のトータル
+        var slides = [];
+        //画像の横幅のトータルの配列
+        $('.slider-list').find('img').each(function(index){
+          if(index === 0){
+            slides[index] = total;
+          }else{
+            total += $(this).width();
+            slides[index] = total;
+          }
+        });
+        console.log(slides);
+
         $('.is-next').click(function() {
-          $('.slider-list').animate({
-            'left': -imgWidth
-          });
-          i++;
+          if(i < 3){
+            i = i + 1;
+            console.log(i);
+            $('.slider-list').animate({
+              'left': -slides[i]
+            });
+          }else{
+            i = 0;
+            console.log(i);
+            $('.slider-list').animate({
+              'left': -slides[i]
+            });
+          }
+        });
+
+        $('.is-prev').click(function() {
+          if(i > 0){
+            i = i - 1;
+            console.log(i);
+            $('.slider-list').animate({
+                'left': -slides[i]
+              });
+          }else{
+            i = 3;
+            console.log(i);
+            $('.slider-list').animate({
+              'left': -slides[i]
+            });
+          }
         });
       });
+
       // 今回やるのはスライドショーです。
       // 右方向には右のボタンを押すと移動し、左方向には左のボタンを押すと移動する。また右端にいる状態で右のボタンを押すと最初の位置に戻り、 左端にいる状態で左のボタンを押すと最後の位置に移動する。data属性にprev,nextを記述してあるのでこちらを取得すると楽です。
       // 位置情報は配列に格納しておき、右のボタンをクリックするたびに配列の添字を1追加し、左のボタンをクリックすると配列の添字を1減らします。そうすることによって次の座標が取得できます。その座標にアニメーションさせるととても楽です。
