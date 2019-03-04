@@ -27,7 +27,7 @@
     <script src="../../common/js/jquery.js"></script>
     <script>
       $(function(){
-        var i = 0;
+        var contentNum = 0;
         //indexの番号
         var total = 0;
         //画像の横幅のトータル
@@ -42,37 +42,28 @@
           }
         });
         console.log(slides);
-
-        $('.is-next').click(function() {
-          if(i < 3){
-            i = i + 1;
-            console.log(i);
-            $('.slider-list').animate({
-              'left': -slides[i]
-            });
-          }else{
-            i = 0;
-            console.log(i);
-            $('.slider-list').animate({
-              'left': -slides[i]
-            });
-          }
-        });
-
-        $('.is-prev').click(function() {
-          if(i > 0){
-            i = i - 1;
-            console.log(i);
-            $('.slider-list').animate({
-                'left': -slides[i]
-              });
-          }else{
-            i = 3;
-            console.log(i);
-            $('.slider-list').animate({
-              'left': -slides[i]
-            });
-          }
+        $('.slider-ctrl-btn').click(function(){
+          if($(this).data('ctrl')=='next'){
+            if(contentNum < $('ul').find('li').length - 1){
+              contentNum = contentNum + 1;
+              console.log(contentNum);
+            }else{
+              contentNum = 0;
+              console.log(contentNum);
+            }
+          };
+          if($(this).data('ctrl')=='prev'){
+            if(contentNum > 0){
+              contentNum = contentNum - 1;
+              console.log(contentNum);
+            }else{
+              contentNum = 3;
+              console.log(contentNum);
+            }
+          };
+          $('.slider-list').animate({
+            'left': -slides[contentNum]
+          });
         });
       });
 
