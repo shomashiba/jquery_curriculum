@@ -33,6 +33,7 @@
         //画像の横幅のトータル
         var slides = [];
         //画像の横幅のトータルの配列
+        var slideLength =$('.slider-list').find('li').length - 1
         $('.slider-list').find('img').each(function(index){
           if(index === 0){
             slides[index] = total;
@@ -43,8 +44,9 @@
         });
         console.log(slides);
         $('.slider-ctrl-btn').click(function(){
-          if($(this).data('ctrl')=='next'){
-            if(contentNum < $('ul').find('li').length - 1){
+          var dataType = $(this).data('ctrl');
+          if(dataType == 'next'){
+            if(contentNum < slideLength){
               contentNum = contentNum + 1;
               console.log(contentNum);
             }else{
@@ -52,12 +54,12 @@
               console.log(contentNum);
             }
           };
-          if($(this).data('ctrl')=='prev'){
+          if(dataType == 'prev'){
             if(contentNum > 0){
               contentNum = contentNum - 1;
               console.log(contentNum);
             }else{
-              contentNum = 3;
+              contentNum = slideLength;
               console.log(contentNum);
             }
           };

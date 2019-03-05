@@ -28,25 +28,27 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
-      $(".menu__btn[data-scroll-place-type='home']").animate({scrollTop:$(".title[data-scroll-place-type='home']").offset().top});
+      $(function(){
+        $('.menu__btn').click(function() {
+          var dataType = $(this).data('scroll-place-type');
+          var titleType = $('.title[data-scroll-place-type=' + dataType + ']').offset().top
+          $('html,body').animate({scrollTop:titleType});
+          console.log($('.title[data-scroll-place-type=' + dataType + ']').offset().top);
+        });
 
-      $(".menu__btn[data-scroll-place-type='news']").animate({scrollTop:$(".title[data-scroll-place-type='news']").offset().top});
+        $('.scrollTopBtn').click(function(){
+          $('html,body').animate({scrollTop:0});
+        })
 
-      $(".menu__btn[data-scroll-place-type='about']").animate({scrollTop:$(".title[data-scroll-place-type='about']").offset().top});
-
-      $('.scrollTopBtn').click(function(){
-        $('html,body').animate({scrollTop:0});
-      })
-      //機能している
-/*
-      $('.scrollTopBtn').scroll(function(){
-        var con_scr = $('contenst').offset().top;
-        var scr_count =
-      })
-*/
-
-     //console.log(.menu__btn[data-scroll-place-type='home']);
-     //何をコンソールすれば良いのか
+        $(window).scroll(function(){
+          var scrollPosition = $(window).scrollTop()
+          if(scrollPosition >= 100){
+            $('.scrollTopBtn').fadeIn();
+          }else{
+            $('.scrollTopBtn').fadeOut();
+          }
+        });
+      });
 
       // 今回やるのはページ内スクロールです。
       // 左上にあるメニューを押して、そのタイトルと同じ位置までスクロールするアニメーションです。
