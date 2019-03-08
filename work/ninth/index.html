@@ -15,12 +15,23 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+
       $.ajax({
-        url: './data.json'
-      })
+        url: './data.json',
+        type: 'GET',
+        dataType: 'json',
+      });
       .done(function(data) {
         console.log(data);
+        var dataArray = data.colorsArray;
+        $.each(dataArray, function(i){
+          $('.colorList').append('<li class="colorList__item"><p class="colorList__title" style="background-color:dataArray[i].hexValue ;">' + dataArray[i].colorName + '</p></li>');
+        });
       });
+      //3/5最後のアドバイス
+      //successは古い形。doneの形にやり直そう→済み
+      //li以降をl8を参考に文字列と変数をつないで形にしていく
+
       // 今回のカリキュラムではAjax（XMLHttpRequest）というJavaScriptの特殊な機能を使います。
       // この機能はブラウザのセキュリティ機能によってはサーバーを立てないとうまく動作しない可能性があるので、サーバーを立てる必要があります。
       // ターミナルで`jquery-curriculum`に移動したあとに`open -a '/Applications/Google Chrome.app' http://localhost:8000/work/ninth/ && python -m SimpleHTTPServer 8000`を叩くとサーバを立てることができます。またブラウザも勝手に立ち上がります。サーバーを止める方法はターミナルでcontrol + cを打つと止まります。
