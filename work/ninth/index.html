@@ -20,12 +20,11 @@
         url: './data.json',
         type: 'GET',
         dataType: 'json',
-      });
-      .done(function(data) {
-        console.log(data);
-        var dataArray = data.colorsArray;
-        $.each(dataArray, function(i){
-          $('.colorList').append('<li class="colorList__item"><p class="colorList__title" style="background-color:dataArray[i].hexValue ;">' + dataArray[i].colorName + '</p></li>');
+      }).done(function(data) {
+          console.log(data);
+          var dataArray = data.colorsArray;
+          $.each(dataArray, function(i){
+            $('.colorList').append('<li class="colorList__item"><p class="colorList__title" style="background-color:' + dataArray[i].hexValue + ' ;">' + dataArray[i].colorName + '</p></li>');
         });
       });
       //3/5最後のアドバイス
