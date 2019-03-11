@@ -56,7 +56,6 @@
 .lists {
   overflow: hidden;
   margin-left: 20px;
-  
 }
 .lists__item {
   -webkit-box-sizing: border-box;

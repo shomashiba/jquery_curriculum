@@ -26,16 +26,51 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+      $('#js-search-button').click(function() {
+        var searchWord = $('#js-search-word').val();
+        $.ajax({
+          url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
+          type: 'GET',
+          datatype: 'json',
+          data: {
+             // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+            applicationId: '1019399324990976605', // (今回はこのIDを使用してください)
+            booksGenreId: '001',
+            keyword: searchWord,
+            hits: 20,
+          },
+        }).done(function(data) {
+           // この中にデータ取得後の動きを記述していきます。
+           console.log(data);
+           if(data.count === 0){
+            $('.lists').before('<div class="alart"></div>');
+            alart =('.alart')
+           }else{
+            $.each(data.Items, function(i,item){
+              //Itemは楽天の個別の商品のこと、Itemsは楽天の商品全体、itemは配列
+              $('.lists').prepend('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>'); 
+            });
+          }
+        });
+      });
+
+
       // 楽天ブックスの総合検索APIを使って製作してください。
       // answerの挙動を良く見てね！
       //
       // https://webservice.rakuten.co.jp/api/bookstotalsearch/
       //
       // $.ajax と $.each を調べてみてください
+      //済み
+
       // 以下は今回使う$.ajaxの基本的な形です。
       //
       // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
+      //済み
+
       // 取得できたらDOM上に<ul class='lists'></ul>を用意しているので、その中に下のテンプレに沿ってデータを入れ込みましょう。
+      //済み
+
       // <li class='lists__item'>
       //  <div class='lists__item__inner'>
       //    <a href='' class='lists__item__link' target='_blank'>
@@ -47,10 +82,13 @@
       //  </div>
       // </li>
       //
+
       // オブジェクトで取得したデータへのアクセス方法 以下参考程度に
       // http://qiita.com/marumaru8228/items/65fc684383b096f0e548
       //
-      //
+      //item.Item.~~~の書き方のこと
+      //済み
+
       // $.ajax({
       //   url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
       //   type: 'GET',
@@ -64,6 +102,8 @@
       //   // この中にデータ取得後の動きを記述していきます。
       // });
       //
+      //済み
+
     </script>
   </body>
 </html>

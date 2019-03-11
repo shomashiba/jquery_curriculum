@@ -18,15 +18,22 @@
 
       $.ajax({
         url: './data.json',
+        //相対パスでデータを引っ張ってくるjsonのファイルを指定します
         type: 'GET',
+        //サーバーへURLに基づいたデータをリクエストする
         dataType: 'json',
       }).done(function(data) {
+        //通信が成功した場合の処理
           console.log(data);
+          //一応コンソールに取ってきたデータを表示
           var dataArray = data.colorsArray;
+          //取ってきたデータのcolorsArrayのデータをdataArryに配列として入れる
           $.each(dataArray, function(i){
+            //繰り返しの処理を行う
             $('.colorList').append('<li class="colorList__item"><p class="colorList__title" style="background-color:' + dataArray[i].hexValue + ' ;">' + dataArray[i].colorName + '</p></li>');
+            //もともと存在するul(colorList)の後ろにliを追加する。配列に含まれる色(hexValue)と色の名前(colorName)の情報が必要なのでそこだけ文字列から外して文字列と+で繋いだ。
+          });
         });
-      });
       //3/5最後のアドバイス
       //successは古い形。doneの形にやり直そう→済み
       //li以降をl8を参考に文字列と変数をつないで形にしていく
