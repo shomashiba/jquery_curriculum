@@ -54,27 +54,27 @@
            // この中にデータ取得後の動きを記述していきます。
           console.log(data); //取ってきたデータをコンソールで確認
           if(data.count === 0){ //検索結果が0件の場合
-            $('.alart').remove();
-            $('.error').remove();
+            $('.alart').remove();//文言が残らないようにクラスを削除
+            $('.error').remove();//文言が残らないようにクラスを削除
             alartFunction(); //下部の別に定義した関数を呼び出す
           }else{ //検索結果が0でなければ
             if(searchWordPast === searchWordNow){ //検索ワードが一致する場合
               $('.lists').prepend(display()); //下部の別に定義した関数を呼び出して一覧の前に表示
-              $('.alart').remove();
-              $('.error').remove();
+              $('.alart').remove();//文言が残らないようにクラスを削除
+              $('.error').remove();//文言が残らないようにクラスを削除
             }else if(searchWordPast !== searchWordNow){ //検索ワードが異なる場合
               $('.lists').empty(); //表示されている一覧の内容をリセットする
-              $('.alart').remove();
-              $('.error').remove();
+              $('.alart').remove();//文言が残らないようにクラスを削除
+              $('.error').remove();//文言が残らないようにクラスを削除
               display(); //下部の別に定義した関数を呼び出す
             }
           }
           function display(){
-            var bookList ='';
+            var bookList =''; //変数を宣言
             $.each(data.Items, function(i,item){
             //Itemは楽天の個別の商品のこと、Itemsは楽天の商品全体、itemは配列
             //取ってきた20個のデータ毎に繰り返し処理を行う
-              bookList += '<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>';//表示内容をbookListに入れる
+              bookList += '<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>';//表示内容をbookListに入れる。+=で文字列に付け加えていく
             });
             $('.lists').prepend(bookList); //後ろに一つずつ項目を表示させていく
             searchWordPast = searchWordNow; //今回の検索ワードをPastに入れ直す
@@ -85,12 +85,12 @@
             alart.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>'); //alartは’’のメッセージを送るclass=messageをhtmlに書き加える
           }
         }).fail(function(jqXHR){
-          $('.error').remove();
-          errorFunction();
+          $('.error').remove();//文言が残らないようにクラスを削除
+          errorFunction(); //以下の関数を呼び出す
           function errorFunction(){
             $('.lists').before('<div class="error"></div>'); //ulの手前にclass=errorを置く
             error =$('.error'); //class=errorにerrorという関数を指定
-            error.html('<p class="message">検索結果が表示できませんでした。<br>エラー内容をご確認ください。</p>'); //alartは’’のメッセージを送るclass=messageをhtmlに書き加える
+            error.html('<p class="message">検索結果が表示できませんでした。<br>エラー内容をご確認ください。</p>'); //errorは’’のメッセージを送るclass=messageをhtmlに書き加える
           }
         })
       });
