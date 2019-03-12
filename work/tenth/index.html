@@ -68,9 +68,10 @@
             $.each(data.Items, function(i,item){
             //Itemは楽天の個別の商品のこと、Itemsは楽天の商品全体、itemは配列
             //取ってきた20個のデータ毎に繰り返し処理を行う
-              var bookList = $('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>');//表示内容をbookListに入れる
-              $('.lists').append(bookList); //後ろに一つずつ項目を表示させていく
+              var bookList = '<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>';//表示内容をbookListに入れる
             });
+            console.log(bookList);
+            $('.lists').prepend(bookList); //後ろに一つずつ項目を表示させていく
             searchWordPast = searchWordNow; //今回の検索ワードをPastに入れ直す
           }
           function alartFunction(){
