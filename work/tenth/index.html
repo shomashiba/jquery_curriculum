@@ -26,14 +26,16 @@
     </div>
     <script src="../../common/js/jquery.js"></script>
     <script>
+      var searchWordPast ;
+      var pageCount = 1; //楽天APIのページ数(最初は1ページ目)
       $('#js-search-button').click(function() { //ボタンをクリックした際の動き
         var searchWordNow = $('#js-search-word').val();//打ち込んだ単語を変数に代入
-        var searchWordPast ;
-        var pageCount = 1; //楽天APIのページ数(最初は1ページ目)
-        var click = 1; //ボタンを押した回数を変数に代入
+        console.log(searchWordNow);
+        console.log(searchWordPast);
         if(searchWordPast === searchWordNow){//1回目のクリックと2回目のクリックの値が同じとき
           pageCount += 1; //ページを2ページ目に送る
         }
+        console.log(pageCount);
         $.ajax({//ajaxからデータを読み込む
           url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522', //楽天APIのリンクを指定する
           type: 'GET',
@@ -50,34 +52,32 @@
            // この中にデータ取得後の動きを記述していきます。
           console.log(data); //取ってきたデータをコンソールで確認
           if(data.count === 0){ //検索結果が0件の場合
+            $('.alart').remove();
             alartFunction(); //下部の別に定義した関数を呼び出す
           }else{ //検索結果が0でなければ
             if(searchWordPast === searchWordNow){ //検索ワードが一致する場合
               $('.lists').prepend(display()); //下部の別に定義した関数を呼び出して一覧の前に表示
-              click++; //クリック数を2にする
+              $('.alart').empty();
             }else if(searchWordPast !== searchWordNow){ //検索ワードが異なる場合
               $('.lists').empty(); //表示されている一覧の内容をリセットする
               $('.alart').empty();
               display(); //下部の別に定義した関数を呼び出す
-              click--; //クリック数を1にする
-            }else if(click ==== 3){
-              alartFunction();//下部の別に定義した関数を呼び出す
             }
           }
           function display(){
-        $.each(data.Items, function(i,item){
-        //Itemは楽天の個別の商品のこと、Itemsは楽天の商品全体、itemは配列
-        //取ってきた20個のデータ毎に繰り返し処理を行う
-          var bookList = $('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>');//表示内容をbookListに入れる
-          $('.lists').append(bookList); //後ろに一つずつ項目を表示させていく
-        });
-        searchWordPast = searchWordNow; //今回の検索ワードをPastに入れ直す
-      }
-      function alartFunction(){
-        $('.lists').before('<div class="alart"></div>'); //ulの手前にclass=alartを置く
-          alart =$('.alart'); //class=alartにalartという関数を指定
-          alart.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>'); //alartは’’のメッセージを送るclass=messageをhtmlに書き加える
-      }
+            $.each(data.Items, function(i,item){
+            //Itemは楽天の個別の商品のこと、Itemsは楽天の商品全体、itemは配列
+            //取ってきた20個のデータ毎に繰り返し処理を行う
+              var bookList = $('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>');//表示内容をbookListに入れる
+              $('.lists').append(bookList); //後ろに一つずつ項目を表示させていく
+            });
+            searchWordPast = searchWordNow; //今回の検索ワードをPastに入れ直す
+          }
+          function alartFunction(){
+            $('.lists').before('<div class="alart"></div>'); //ulの手前にclass=alartを置く
+            alart =$('.alart'); //class=alartにalartという関数を指定
+            alart.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>'); //alartは’’のメッセージを送るclass=messageをhtmlに書き加える
+          }
         })
       });
 
