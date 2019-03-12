@@ -27,10 +27,11 @@
     <script src="../../common/js/jquery.js"></script>
     <script>
       $('#js-search-button').click(function() { //ボタンをクリックした際の動き
-        var searchWord = $('#js-search-word').val();//打ち込んだ単語を変数に代入
+        var searchWordNow = $('#js-search-word').val();//打ち込んだ単語を変数に代入
+        var searchWordPast ;
         var pageCount = 1; //楽天APIのページ数(最初は1ページ目)
         var click = 1; //ボタンを押した回数を変数に代入
-        if(searchWord.click[click-1].val() === searchWord.click[click].val()){//1回目のクリックと2回目のクリックの値が同じとき
+        if(searchWordPast === searchWordNow){//1回目のクリックと2回目のクリックの値が同じとき
           pageCount++; //ページを2ページ目に送る
         }
         $.ajax({//ajaxからデータを読み込む
@@ -41,7 +42,7 @@
              // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
             applicationId: '1019399324990976605', // (今回はこのIDを使用してください)
             booksGenreId: '001',
-            keyword: searchWord, //検索窓に入れた値に該当するもの
+            keyword: searchWordNow, //検索窓に入れた値に該当するもの
             hits: 20, //検索上位20件を表示
             page: pageCount , //今回は1-20件の1ページ目か21-40件の2ページ目を指定
           },
@@ -53,10 +54,10 @@
             alart =$('.alart'); //class=alartにalartという関数を指定
             alart.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>'); //alartは’’のメッセージを送るclass=messageをhtmlに書き加える
           }else{ //検索結果が0でなければ
-            if(searchWord.click[click-1].val() === searchWord.click[click].val()){
+            if(searchWordPast === searchWordNow){
               $('.lists').prepend(display());
               click++;
-            }else if(searchWord.click[click-1].val() !== searchWord.click[click].val()){
+            }else if(searchWordPast !== searchWordNow){
               $('.lists').empty();
               display();
               click--;
@@ -75,6 +76,7 @@
           var bookList = $('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl + '" class="lists__item__link" target="_blank"><img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="' + item.Item.itemCaption +'"><p class="lists__item__detail">作品名：' + item.Item.title + '</p><p class="lists__item__detail">作者：' + item.Item.author +'</p><p class="lists__item__detail">出版社：'+ item.Item.publisherName + '</p></a></div></li>');
           $('.lists').append(bookList);
         });
+        searchWordPast = searchWordNow;
       }
 
 
